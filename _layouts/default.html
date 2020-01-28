@@ -1,0 +1,39 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+    <meta charset="utf-8">
+    <title>{{ page.title | flatify }}</title>
+    <meta name="description" content="Gyakran Ismételt Kérdések a Szegedi Tudományegyetemmel kapcsolatban (TTIK)">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="{{ site.baseurl }}/icon.png">
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="shortcut icon" type="image/x-icon" href="{{ site.baseurl }}/favicon.ico"/>
+
+    <link rel="stylesheet" href="{{ site.baseurl }}/css/main.css">
+
+    <meta name="theme-color" content="#fafafa">
+</head>
+
+<body>
+<div class="bg-image"></div>
+<h1>{{ page.ptitle | flatify }}</h1>
+<!-- <nav>
+    <ul>
+        {% for item in site.data.navigation %}
+        <li><a href="{{ site.baseurl }}/{{ item.link }}" {% if page.url== item.link %} style="color: red;" {% endif %}>
+            {{ item.name }}
+        </a></li>
+        {% endfor %}
+    </ul>
+</nav> -->
+<!--[if IE]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade
+    your browser</a> to improve your experience and security.</p>
+<![endif]-->
+
+{{ content }}
+</body>
+
+</html>
