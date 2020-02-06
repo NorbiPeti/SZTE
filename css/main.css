@@ -1,13 +1,13 @@
 body {
-    background-color: #003239;
+    background-color: #222222;
 }
 
 * {
-    color: aqua;
+    color: white;
 }
 
-.bg-image {
-    background-image: linear-gradient(to bottom, #f6f6f6, #f4f4f4, #f2f2f2, #f0f0f0);
+/*.bg-image {
+    background-image: linear-gradient(to bottom, #161616, #141414, #121212, #101010);
     background-size: cover;
     filter: blur(16px);
     height: 100%;
@@ -18,28 +18,7 @@ body {
     z-index: -1;
     margin: 0;
     padding: 0;
-}
-
-
-#popularSongs, #hiddenSongs {
-    width: 38%;
-    margin: 4%;
-    border: 1px #78ffee solid;
-    padding: 20px;
-}
-
-#popularSongs h2, #hiddenSongs h2 {
-    text-align: center;
-    color: aqua;
-}
-
-#popularSongs {
-    float: left;
-}
-
-#hiddenSongs {
-    float: right;
-}
+}*/
 
 h1 {
     text-align: center;
@@ -73,26 +52,10 @@ nav li a:hover {
     color: aqua;
 }
 
-.stream-column {
-    float: left;
-    width: 33.33%;
-}
-
-.stream-column h2 {
-    text-align: center;
-}
-
-/* Clear floats after the columns */
-.stream-row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
-#lyrics {
-    font-family: sans-serif;
-}
-
 .pageContent {
     margin: 20px;
+}
+
+:target {
+    background-color: #0000CC;
 }
