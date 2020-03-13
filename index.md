@@ -56,9 +56,6 @@ A tanulmányi ösztöndíj automatikusan jár minden hallgatónak aki jogosult r
 
 Modulo-ban az átlagmódosítási kérvény szerkesztésre megnyitásával (ha egyszer megnyitottad, akkor a piszkozatokban ott van) meg lehet nézni, hogy milyen átlagért mennyi ösztöndíj jár, ha már elérhető.
 
-### Mivel lehet belépni a stud-os oldalra? Mi a stud-os email címem?
-A h-s azonosítóval (hxxxxxx) lehet belépni, és a hxxxxxx@stud.u-szeged.hu a fő email cím, ez is használható bárhol, de a Vezeteknev.Keresztnev[.N]@stud.u-szeged.hu  is (N>=1).
-
 ### Hányszor lehet vizsgázni vagy felvenni egy tárgyat?
 Egy tárgyat összesen háromszor lehet felvenni, egy félévben összesen háromszor lehet vizsgázni. Emellett összesen hatszor lehet vizsgázni egy tárgyból egy képzés során.
 
@@ -97,3 +94,27 @@ Ha csak annyi a különbség, hogy az egyik kódja -00001-re vagy hasonlóra vé
 
 ### Helpdesk
 Neptun Helpdesk: [help@neptun.u-szeged.hu](mailto:help@neptun.u-szeged.hu)
+
+## Stud
+### Mivel lehet belépni a stud-os oldalra? Mi a stud-os email címem?
+A h-s azonosítóval (hxxxxxx) lehet belépni, és a hxxxxxx@stud.u-szeged.hu a fő email cím, ez is használható bárhol, de a Vezeteknev.Keresztnev[.N]@stud.u-szeged.hu is (N>=1, tehát vagy Vez.Ker@stud... vagy Vez.Ker.1@stud... stb.).
+
+### Az elküldött levélnél "A csatolmányt leválasztottuk" szöveg jelenik meg
+(Pl.: [A csatolmĂĄnyt levĂĄlasztottuk: az eredeti csatolmĂĄny tĂ­pusa: "text/plain", nĂŠv: "Teszt"])
+Alapbeállítás szerint az elküldött levelekből törli a csatolmányt a **te másolatodból**, azaz a címzett mindenképpen megkapja a csatolmányt.
+Ez helytakarékossági okokból történik, ha a Horde felületén küldöd az E-mailt, meg is lehet őriztetni a mellékletet alul.
+
+### E-mail küldés és fogadás saját E-mail klienssel
+Saját klienssel is lehet E-mailt fogadni bárhonnan, viszont küldeni **csak** egyetemi hálózatról lehetséges (pl. eduroam).
+
+* Típus: IMAP
+* Szerver (küldés/fogadás): www.stud.u-szeged.hu
+* Titkosítás: SSL/TLS
+* Port: fogadás: 993 küldés: 465
+* Azonosító: h-s azonosító
+* Jelszó: stud-os jelszó
+* E-mail: hxxxxxx@stud.u-szeged.hu (h-s azon.)
+
+### Elérhetőségek
+* Szociális ösztöndíj, egyéb juttatások: jutter@ehok.u-szeged.hu
+* Tanulmányi ügyek: [TO](https://sci.u-szeged.hu/karunkrol/szervezeti-felepites/tanulmanyi-osztaly), ttikto@sci.u-szeged.hu
