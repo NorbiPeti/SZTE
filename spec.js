@@ -28,21 +28,9 @@ parseExcel = function (file) {
 };
 lk.onchange = ev => parseExcel(lk.files[0]);
 szak.onchange = async ev => {
-	/*let response = await fetch(document.URL.substr(0,document.URL.lastIndexOf('/'))+'/pti_bsc.xlsx');
-	let data = await response.blob();
-	parseExcel(data);*/
-	/*let isCacheSupported = 'caches' in window;
-	if (isCacheSupported) {
-		let cache = await caches.open("targyak");
-		//await cache.add("https://oktweb.neptun.u-szeged.hu/tanterv/tanterv.aspx?kod=BSZKPTI-N1");
-	}*/
 	if (szak.value === "nope") return;
-	let reader = new FileReader();
 	let response = await fetch(document.URL.substr(0, document.URL.lastIndexOf('/')) + '/data/' + szak.value + "_bsc.csv");
-	let data = await response.blob();
-	reader.onload = ev => {
-		let obj = Papa.parse(reader.result);
-		console.log(obj);
-	}
-	reader.readAsText(data);
+	let data = await response.text();
+	let obj = Papa.parse(data);
+	console.log(obj);
 };
