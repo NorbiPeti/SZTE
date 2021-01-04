@@ -15,12 +15,37 @@ parseExcel = async function (file) {
 
 		workbook.SheetNames.forEach(function (sheetName) {
 			const rows = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
-			console.log(rows);
-			console.log(rows[0]["Tárgykód"]);
 			for (const row of rows) {
-				//grades[rows[0]["Tárgykód"]] = new SubjectGrades(rows[0]["Tárgykód"], rows[0]["Tárgy címe, előadó neve"], "");
+				let id = row["Tárgykód"].replaceAll(/[‑-]\d{5}/g, "").replaceAll(/‑/g, "-");
+				id = row["Tárgy címe, előadó neve"].indexOf("tehetséggondozó") !== -1 ? id + "-TG" : id;
+				const subject = subjects[id];
+				if (!subject) {
+					console.warn("Subject not found: " + id + " " + row["Tárgy címe, előadó neve"]);
+					continue;
+				}
+				let grade = /\((\d)\)(?!.*\(\d\))/.exec(row["Jegyek"]);
+				if (grade == null)
+					continue;
+				subject.grade = +grade[1];
+				subject.credit = +row["Kr."];
+				grades[id] = subject;
 			}
 			const specsSpan = document.getElementById("specs");
+			const total = {};
+			for (const sub of Object.values(grades)) {
+				for (const category of sub.categories) {
+					if (sub.grade <= 1) continue;
+					if (total[category.id] === undefined)
+						total[category.id] = sub.credit;
+					else
+						total[category.id] += sub.credit;
+				}
+			}
+			specsSpan.innerHTML = "";
+			for (const tk of Object.keys(total)) {
+				const cat = tryGetCat(tk);
+				specsSpan.innerHTML += cat.name + ": " + total[tk] + "/" + cat.neededCredit + "<br />";
+			}
 		});
 	} catch
 		(ex) {
@@ -48,13 +73,16 @@ szak.onchange = async () => {
 			continue;
 		if (sdata[5].length === 0) { //Course type, only present at leaf nodes
 			let tempcat = tryGetCat(sdata[1]);
-			if (tempcat !== undefined)
+			if (tempcat !== undefined) {
 				cat = tempcat;
+				if (cat.spec && cat.spec !== kotSpec && cat.spec !== kotvalSpec)
+					cat.neededCredit = +sdata[9];
+			}
 			if (sdata[2].indexOf("specializáció") === -1)
 				continue;
 			const spec = new Specialization(sdata[1], sdata[2],
-				new SubjectCategory(sdata[1] + "‑MATSZT‑A", sdata[2] + " matekos tárgyak"),
-				new SubjectCategory(sdata[1] + "‑INF‑A", sdata[2] + " infós tárgyak"));
+				new SubjectCategory(sdata[1] + "‑MATSZT", sdata[2] + " matekos tárgyak", 0),
+				new SubjectCategory(sdata[1] + "‑INF", sdata[2] + " infós tárgyak"), 0);
 			specs.push(spec);
 			continue;
 		}
@@ -62,13 +90,21 @@ szak.onchange = async () => {
 			console.warn("No category found!");
 			continue;
 		}
-		subjects[sdata[1]] = new SubjectData(sdata[1], sdata[2], sdata[8], cat);
+		let id = sdata[1].replaceAll(/[‑-]\d{5}/g, "").replaceAll(/‑/g, "-");
+		id = sdata[2].indexOf("tehetséggondozó") !== -1 ? id + "-TG" : id;
+		if (!subjects[id])
+			subjects[id] = new SubjectData(id, sdata[2], sdata[8], [cat]);
+		else {
+			subjects[id].categories.push(cat);
+			/*if (subjects[id].credit !== sdata[8]) - Több különböző kredit-eloszlású verzió is lehet egy tárgyból
+				console.warn("Credit amount differs for " + sdata[2] + ": " + subjects[id].credit + " " + sdata[8]);*/
+		}
 	}
 	for (const spec of specs) {
-		const count = Object.values(subjects).reduce((pv, cv) => cv.category.spec === spec ? pv + 1 : pv, 0);
+		const count = Object.values(subjects).reduce((pv, cv) => cv.categories.reduce((pcv, ccv) => pcv || ccv.spec === spec, false) ? pv + 1 : pv, 0);
 		console.log(spec.name + ": " + count);
 	}
-	const count = Object.values(subjects).reduce((pv, cv) => cv.category.spec === null ? pv + 1 : pv, 0);
+	const count = Object.values(subjects).reduce((pv, cv) => cv.categories.reduce((pcv, ccv) => pcv || ccv.spec === null, false) ? pv + 1 : pv, 0);
 	console.log("Egyéb tárgyak: " + count);
 };
 

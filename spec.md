@@ -1,12 +1,12 @@
 ---
-title: SZTE specializációk
-ptitle: Specializációk követelményei
+title: SZTE infós kreditszámoló
+ptitle: Kreditszámoló
 ---
 
-Ez az oldal segít kiszámítani az egyes specializációkhoz már megszerzett krediteket, és egyéb feltételeket.
+Ez az oldal segít kiszámítani (az egyes specializációkhoz is) már megszerzett krediteket, és egyéb feltételeket.
 
 *A megadott adatok a gépeden maradnak, azokat nem kapom meg.
-Az adatok tájékoztató jellegűek, a kiírt eredményekért felelősséget nem vállalok.*
+Az eredmények pontosságáért felelősséget nem vállalok, hiteles tájékoztatásért fordulj a TO-hoz.*
 
 ## 1. Válaszd ki a képzést
 
