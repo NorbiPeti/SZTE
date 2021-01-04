@@ -11,6 +11,7 @@ Az adatok tájékoztató jellegűek, a kiírt eredményekért felelősséget nem
 ## 1. Válaszd ki a képzést
 
 <label>
+Képzés:
 <select style="color: black" id="szak">
     <option selected value="nope">---- Szakok ----</option>
     <option value="gi">gazdaságinformatikus</option>
@@ -18,6 +19,7 @@ Az adatok tájékoztató jellegűek, a kiírt eredményekért felelősséget nem
     <option value="mi">mérnökinformatikus</option>
 </select>
 </label>
+<span id="szakError" style="color: red"></span>
 
 ## 2. Neptun leckekönyv export
 Szükség lesz a Neptunban a Tanulmányok -> Leckekönyv -> Minden félév -> XLS export (ikon jobb oldalt) eredményére.
@@ -27,7 +29,7 @@ Szükség lesz a Neptunban a Tanulmányok -> Leckekönyv -> Minden félév -> XL
 ## 3. Teljesítések:
 <span id="specs"></span>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.6/jszip.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.6/xlsx.js"></script>
+<script src="xlsx.full.min.js"></script>
 <script src="papaparse.min.js"></script>
+<script src="specdata.js"></script>
 <script src="spec.js"></script>
