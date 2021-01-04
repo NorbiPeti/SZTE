@@ -4,6 +4,7 @@ class SubjectData {
 		this.name = name;
 		this.credit = credit;
 		this.category = category;
+		this.grade = 0;
 	}
 }
 

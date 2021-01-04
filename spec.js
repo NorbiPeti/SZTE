@@ -14,10 +14,13 @@ parseExcel = async function (file) {
 		});
 
 		workbook.SheetNames.forEach(function (sheetName) {
-			const XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
-			const json_object = JSON.stringify(XL_row_object);
-			console.log(json_object);
-			console.log(XL_row_object[0]["Tárgykód"]);
+			const rows = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+			console.log(rows);
+			console.log(rows[0]["Tárgykód"]);
+			for (const row of rows) {
+				//grades[rows[0]["Tárgykód"]] = new SubjectGrades(rows[0]["Tárgykód"], rows[0]["Tárgy címe, előadó neve"], "");
+			}
+			const specsSpan = document.getElementById("specs");
 		});
 	} catch
 		(ex) {
@@ -59,14 +62,14 @@ szak.onchange = async () => {
 			console.warn("No category found!");
 			continue;
 		}
-		subjects.push(new SubjectData(sdata[1], sdata[2], sdata[8], cat));
+		subjects[sdata[1]] = new SubjectData(sdata[1], sdata[2], sdata[8], cat);
 	}
-	const specsSpan = document.getElementById("specs");
-	specsSpan.innerHTML = "";
 	for (const spec of specs) {
-		const count = subjects.reduce((pv, cv) => cv.category.spec === spec ? pv + 1 : pv, 0);
-		specsSpan.innerHTML += spec.name + ": " + count + "<br />";
+		const count = Object.values(subjects).reduce((pv, cv) => cv.category.spec === spec ? pv + 1 : pv, 0);
+		console.log(spec.name + ": " + count);
 	}
+	const count = Object.values(subjects).reduce((pv, cv) => cv.category.spec === null ? pv + 1 : pv, 0);
+	console.log("Egyéb tárgyak: " + count);
 };
 
 function tryGetCat(categoryID) {
@@ -79,11 +82,12 @@ function tryGetCat(categoryID) {
 	].find(cat => cat.id === categoryID);
 }
 
-let subjects = [];
+let subjects = {};
 let specs = [
 	kotSpec,
 	kotvalSpec
 ];
+let grades = {};
 (async () => {
 		await szak.onchange(undefined);
 		await lk.onchange(undefined);
