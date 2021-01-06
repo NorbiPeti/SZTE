@@ -3,6 +3,7 @@ const lk = document.getElementById("leckekonyv");
 promiseOnLoad = async loadable => new Promise(((resolve, reject) => (loadable.onload = ev => resolve(ev)) && (loadable.onerror = ev => reject(ev))));
 parseExcel = async function (file) {
 	try {
+		if (!file || szak.value === "nope") return;
 		const reader = new FileReader();
 		const evpr = promiseOnLoad(reader);
 		reader.readAsBinaryString(file);
@@ -16,7 +17,9 @@ parseExcel = async function (file) {
 		workbook.SheetNames.forEach(function (sheetName) {
 			const rows = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
 			for (const row of rows) {
-				let id = row["Tárgykód"].replaceAll(/[‑-]\d{5}/g, "").replaceAll(/‑/g, "-");
+				let id = row["Tárgykód"];
+				if (!id.startsWith("IB0"))
+					id = id.replaceAll(/[‑-]\d{5}/g, "").replaceAll(/‑/g, "-");
 				id = row["Tárgy címe, előadó neve"].indexOf("tehetséggondozó") !== -1 ? id + "-TG" : id;
 				const subject = subjects[id];
 				if (!subject) {
@@ -78,19 +81,24 @@ szak.onchange = async () => {
 				if (cat.spec && cat.spec !== kotSpec && cat.spec !== kotvalSpec)
 					cat.neededCredit = +sdata[9];
 			}
-			if (sdata[2].indexOf("specializáció") === -1)
-				continue;
-			const spec = new Specialization(sdata[1], sdata[2],
-				new SubjectCategory(sdata[1] + "‑MATSZT", sdata[2] + " matekos tárgyak", 0),
-				new SubjectCategory(sdata[1] + "‑INF", sdata[2] + " infós tárgyak"), 0);
-			specs.push(spec);
+			if (sdata[2].indexOf("specializáció") !== -1) {
+				const spec = new Specialization(sdata[1], sdata[2],
+					new SubjectCategory(sdata[1] + "‑MATSZT", sdata[2] + " matekos tárgyak", 0),
+					new SubjectCategory(sdata[1] + "‑INF", sdata[2] + " infós tárgyak"), 0);
+				specs.push(spec);
+			}
+			/*if (sdata[2].indexOf("Speciálkollégium") !== -1) {
+				speck.push(sdata[1].replaceAll("TE‑", ""));
+			}*/
 			continue;
 		}
 		if (cat === undefined) {
 			console.warn("No category found!");
 			continue;
 		}
-		let id = sdata[1].replaceAll(/[‑-]\d{5}/g, "").replaceAll(/‑/g, "-");
+		let id = sdata[1];
+		if (!id.startsWith("IB0")) //IB0: speckol and such
+			id = id.replaceAll(/[‑-]\d{5}/g, "").replaceAll(/‑/g, "-");
 		id = sdata[2].indexOf("tehetséggondozó") !== -1 ? id + "-TG" : id;
 		if (!subjects[id])
 			subjects[id] = new SubjectData(id, sdata[2], sdata[8], [cat]);
@@ -106,6 +114,8 @@ szak.onchange = async () => {
 	}
 	const count = Object.values(subjects).reduce((pv, cv) => cv.categories.reduce((pcv, ccv) => pcv || ccv.spec === null, false) ? pv + 1 : pv, 0);
 	console.log("Egyéb tárgyak: " + count);
+	if (lk.files[0])
+		await lk.onchange(undefined);
 };
 
 function tryGetCat(categoryID) {
@@ -126,6 +136,5 @@ let specs = [
 let grades = {};
 (async () => {
 		await szak.onchange(undefined);
-		await lk.onchange(undefined);
 	}
 )();
