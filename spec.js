@@ -18,13 +18,19 @@ parseExcel = async function (file) {
 			const rows = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
 			for (const row of rows) {
 				let id = row["Tárgykód"];
+				const name = row["Tárgy címe, előadó neve"].replace(/,.*/, "");
 				if (!id.startsWith("IB0"))
-					id = id.replaceAll(/[‑-]\d{5}/g, "").replaceAll(/‑/g, "-");
-				id = row["Tárgy címe, előadó neve"].indexOf("tehetséggondozó") !== -1 ? id + "-TG" : id;
-				const subject = subjects[id];
+					id = id.replaceAll(/[‑-]\d{5}/g, "");
+				id = id.replaceAll(/‑/g, "-");
+				id = name.indexOf("tehetséggondozó") !== -1 ? id + "-TG" : id;
+				let subject = subjects[id];
 				if (!subject) {
-					console.warn("Subject not found: " + id + " " + row["Tárgy címe, előadó neve"]);
-					continue;
+					if (id.startsWith("X"))
+						subject = new SubjectData(id, name, 0, [szabvalCat]);
+					else {
+						console.warn("Subject not found: " + id + " " + name);
+						continue;
+					}
 				}
 				let grade = /\((\d)\)(?!.*\(\d\))/.exec(row["Jegyek"]);
 				if (grade == null)
@@ -44,10 +50,39 @@ parseExcel = async function (file) {
 						total[category.id] += sub.credit;
 				}
 			}
+			const print = (cat, name, total, needed) => specsSpan.innerHTML += name + ": " + total + "/" + (needed ?? cat.neededCredit) + "<br />";
 			specsSpan.innerHTML = "";
-			for (const tk of Object.keys(total)) {
-				const cat = tryGetCat(tk);
-				specsSpan.innerHTML += cat.name + ": " + total[tk] + "/" + cat.neededCredit + "<br />";
+			let kotvalTotal = 0;
+			for (const spec of specs) {
+				specsSpan.innerHTML += "<h3>" + spec.name + "</h3>";
+				const kvs = {"Matekos tárgyak": spec.matcat, "Infós tárgyak": spec.infcat};
+				let kextra = 0;
+				const neededExtra = 52 - spec.matcat.neededCredit - spec.infcat.neededCredit;
+				for (const key of Object.keys(kvs)) {
+					const value = kvs[key];
+					let tot = total[value.id];
+					if (spec === kotvalSpec)
+						kotvalTotal += tot;
+					if (spec !== kotSpec && neededExtra !== 0) {
+						if (tot > value.neededCredit) {
+							kextra += tot - value.neededCredit;
+							tot = value.neededCredit;
+						}
+					}
+					print(value, key, tot);
+				}
+				if (spec !== kotSpec) {
+					if (neededExtra !== 0) {
+						print(kotvalEgyebCat, kotvalEgyebCat.name, kextra, neededExtra);
+					}
+					let szt = 0;
+					if (spec !== kotvalSpec) {
+						szt = kotvalTotal - total[spec.matcat.id] - total[spec.infcat.id];
+						if (neededExtra !== 0)
+							szt -= kextra;
+					}
+					print(szabvalCat, szabvalCat.name, (total[szabvalCat.id] ?? 0) + szt);
+				}
 			}
 		});
 	} catch
@@ -98,7 +133,8 @@ szak.onchange = async () => {
 		}
 		let id = sdata[1];
 		if (!id.startsWith("IB0")) //IB0: speckol and such
-			id = id.replaceAll(/[‑-]\d{5}/g, "").replaceAll(/‑/g, "-");
+			id = id.replaceAll(/[‑-]\d{5}/g, "");
+		id = id.replaceAll(/‑/g, "-");
 		id = sdata[2].indexOf("tehetséggondozó") !== -1 ? id + "-TG" : id;
 		if (!subjects[id])
 			subjects[id] = new SubjectData(id, sdata[2], sdata[8], [cat]);
