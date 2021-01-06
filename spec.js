@@ -33,8 +33,12 @@ parseExcel = async function (file) {
 					}
 				}
 				let grade = /\((\d)\)(?!.*\(\d\))/.exec(row["Jegyek"]);
-				if (grade == null)
-					continue;
+				if (grade == null) {
+					const sign = row["Aláírás"];
+					if (!sign)
+						continue;
+					grade = [, sign.startsWith("Aláírva") ? 5 : 1];
+				}
 				subject.grade = +grade[1];
 				subject.credit = +row["Kr."];
 				grades[id] = subject;
@@ -82,11 +86,14 @@ parseExcel = async function (file) {
 							szt -= kextra;
 					}
 					print(szabvalCat, szabvalCat.name, (total[szabvalCat.id] ?? 0) + szt);
+				} else {
+					print(szakdogaCat, szakdogaCat.name, total[szakdogaCat.id] ?? 0);
+					specsSpan.innerHTML += szakmaiCat.name + ": " + (Object.values(grades).find(cv => cv.categories.indexOf(szakmaiCat) !== -1 && cv.grade > 1) ? "Teljesitve" : "Nincs teljesitve") + "<br />";
+					specsSpan.innerHTML += "Testnevelés: " + Object.values(grades).reduce((pv, cv) => cv.id.startsWith("XT") && cv.grade === 5 ? pv + 1 : pv, 0) + "/2 félév"; //TODO: Különböző félévben
 				}
 			}
 		});
-	} catch
-		(ex) {
+	} catch (ex) {
 		console.log(ex);
 	}
 }
