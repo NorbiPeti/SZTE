@@ -15,10 +15,10 @@ Az eredmények pontosságáért felelősséget nem vállalok, hiteles tájékozt
 <label>
 Képzés:
 <select style="color: black" id="szak">
-    <option selected value="nope">---- Szakok ----</option>
-    <option value="gai" disabled>gazdaságinformatikus</option>
-    <option value="pti">programtervező informatikus</option>
-    <option value="mei" disabled>mérnökinformatikus</option>
+    <option style="color: black" value="nope">---- Szakok ----</option>
+    <option style="color: black" value="gai" disabled>gazdaságinformatikus</option>
+    <option style="color: black" selected value="pti">programtervező informatikus</option> <!-- TODO -->
+    <option style="color: black" value="mei" disabled>mérnökinformatikus</option>
 </select>
 </label>
 <span id="szakError" style="color: red"></span>
