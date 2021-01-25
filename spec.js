@@ -93,7 +93,10 @@ parseExcel = async function (file) {
 				} else {
 					print(szakdogaCat, szakdogaCat.name, total[szakdogaCat.id] ?? 0);
 					specsSpan.innerHTML += szakmaiCat.name + ": " + (Object.values(grades).find(cv => cv.categories.indexOf(szakmaiCat) !== -1 && cv.grade > 1) ? "Teljesitve" : "Nincs teljesitve") + "<br />";
-					specsSpan.innerHTML += "Testnevelés: " + Object.values(grades).reduce((pv, cv) => cv.id.startsWith("XT") && cv.grade === 5 ? pv + 1 : pv, 0) + "/2 félév"; //TODO: Különböző félévben
+					specsSpan.innerHTML += "Testnevelés: " + Object.values(grades).reduce((pv, cv) =>
+						cv.id.startsWith("XT") && cv.grade === 5 &&
+						(cv.semester.firstYear !== pv[1]?.firstYear || cv.semester.num !== pv[1]?.num)
+							? [pv[0] + 1, cv.semester] : pv, [0, null])[0] + "/2 félév";
 				}
 			}
 			let semester = Semester.current();
