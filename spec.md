@@ -14,9 +14,9 @@ Az eredmények pontosságáért felelősséget nem vállalok, hiteles tájékozt
 Képzés:
 <select style="color: black" id="szak">
     <option selected value="nope">---- Szakok ----</option>
-    <option value="gi">gazdaságinformatikus</option>
+    <option value="gai" disabled>gazdaságinformatikus</option>
     <option value="pti">programtervező informatikus</option>
-    <option value="mi">mérnökinformatikus</option>
+    <option value="mei" disabled>mérnökinformatikus</option>
 </select>
 </label>
 <span id="szakError" style="color: red"></span>
@@ -28,6 +28,8 @@ Szükség lesz a Neptunban a Tanulmányok -> Leckekönyv -> Minden félév -> XL
 
 ## 3. Teljesítések:
 <span id="specs"></span>
+
+A szükségeseken felül teljesitett kreditek átszámolódnak az egyéb kötvál és a szabvál kategóriákba. Ez az oldal nem tárgyanként számitja át, igy lehetséges néhány kredit eltérés.
 
 <script src="xlsx.full.min.js"></script>
 <script src="papaparse.min.js"></script>

@@ -29,7 +29,7 @@ class Specialization {
 }
 
 const kotMatCat = new SubjectCategory("MK‑ALA", "Kötelező matekos tárgyak", 46);
-const kotInfCat = new SubjectCategory("MK‑SZT", "Kötelező infós tárgyak", 52)
+const kotInfCat = new SubjectCategory("MK‑SZT", "Kötelező infós tárgyak", 52);
 kotSpec = new Specialization("KOT", "Kötelező tárgyak", kotMatCat, kotInfCat);
 const kotvalMatCat = new SubjectCategory("MK‑DIF‑MATSZT", "Kötvál matekos tárgyak", 14);
 const kotvalInfCat = new SubjectCategory("MK‑DIF‑INF", "Kötvál infós tárgyak", 23);

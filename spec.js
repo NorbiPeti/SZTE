@@ -4,6 +4,7 @@ promiseOnLoad = async loadable => new Promise(((resolve, reject) => (loadable.on
 parseExcel = async function (file) {
 	try {
 		if (!file || szak.value === "nope") return;
+		grades = {};
 		const reader = new FileReader();
 		const evpr = promiseOnLoad(reader);
 		reader.readAsBinaryString(file);
@@ -100,6 +101,8 @@ parseExcel = async function (file) {
 lk.onchange = async () => await parseExcel(lk.files[0]);
 szak.onchange = async () => {
 	if (szak.value === "nope") return;
+	subjects = {};
+	specs = [...specsDef];
 	let response = await fetch(document.URL.substr(0, document.URL.lastIndexOf('/')) + '/data/' + szak.value + "_bsc.csv");
 	let data = await response.text();
 	let obj = Papa.parse(data);
@@ -172,7 +175,8 @@ function tryGetCat(categoryID) {
 }
 
 let subjects = {};
-let specs = [
+let specs = [];
+let specsDef = [
 	kotSpec,
 	kotvalSpec
 ];
