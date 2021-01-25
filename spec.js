@@ -95,28 +95,14 @@ parseExcel = async function (file) {
 					specsSpan.innerHTML += "Testnevelés: " + Object.values(grades).reduce((pv, cv) => cv.id.startsWith("XT") && cv.grade === 5 ? pv + 1 : pv, 0) + "/2 félév"; //TODO: Különböző félévben
 				}
 			}
-			console.log("Current semester:");
 			let semester = Semester.current();
-			console.log(semester);
-			let grds = [];
-			for (const grade of Object.values(grades)) {
-				console.log("gsfy: " + grade.semester.firstYear);
-				console.log("gsn: " + grade.semester.num);
-				console.log("sfy: " + semester.firstYear);
-				console.log("sn: " + semester.num);
-				if (grade.semester.firstYear === semester.firstYear && grade.semester.num === semester.num)
-					grds.push(grade);
+			specsSpan.innerHTML += getKKI(semester);
+			if (semester.num === 2) semester.num--;
+			else {
+				semester.firstYear--;
+				semester.num++;
 			}
-			let totalCred = 0, passedCred = 0, totalNum = 0;
-			for (const grade of grds) {
-				if (grade.grade > 1) {
-					passedCred += grade.credit;
-					totalNum += grade.credit * grade.grade;
-				}
-				totalCred += grade.credit;
-			}
-			console.log("tc: " + totalCred + " pc: " + passedCred + " tn: " + totalNum);
-			specsSpan.innerHTML += "<br />KKI (ösztöndijhoz): " + (totalNum / 30.0 * passedCred / totalCred);
+			specsSpan.innerHTML += getKKI(semester);
 		});
 	} catch (ex) {
 		console.log(ex);
@@ -137,7 +123,6 @@ szak.onchange = async () => {
 			szakError.innerHTML += error.type + " - " + error.code + ": " + error.message + "<br />";
 		return;
 	}
-	console.log(obj.data);
 	let cat;
 	for (let i = 2; i < obj.data.length; i++) { //2: Skip header
 		const sdata = obj.data[i];
@@ -196,6 +181,20 @@ function tryGetCat(categoryID) {
 		szakmaiCat,
 		szabvalCat
 	].find(cat => cat.id === categoryID);
+}
+
+function getKKI(semester) {
+	let totalCred = 0, passedCred = 0, totalNum = 0;
+	for (const grade of Object.values(grades)) {
+		if (grade.semester.firstYear === semester.firstYear && grade.semester.num === semester.num) {
+			if (grade.grade > 1) {
+				passedCred += grade.credit;
+				totalNum += grade.credit * grade.grade;
+			}
+			totalCred += grade.credit;
+		}
+	}
+	return "<br />" + semester.firstYear + "/" + (semester.firstYear + 1 - 2000) + "/" + semester.num + " KKI (ösztöndijhoz): " + (totalNum / 30.0 * passedCred / totalCred);
 }
 
 let subjects = {};

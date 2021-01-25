@@ -45,7 +45,6 @@ class Semester {
 		const year = date.getFullYear();
 		const month = date.getMonth();
 		const s = new Semester(year, 1);
-		console.log("Month: " + month);
 		if (month === 0)
 			s.firstYear--;
 		else if (month < 8) {

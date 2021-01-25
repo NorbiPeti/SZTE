@@ -1,14 +1,16 @@
 ---
 title: SZTE infós kreditszámoló
-ptitle: Kreditszámoló
+ptitle: Kreditek
 ---
 
-Ez az oldal segít kiszámítani (az egyes specializációkhoz is) már megszerzett krediteket, és egyéb feltételeket.
+Ez az oldal segít kiszámítani (az egyes specializációkhoz is) már megszerzett krediteket, és ellenőrizni egyéb feltételeket.
 
 *A megadott adatok a gépeden maradnak, azokat nem kapom meg.
 Az eredmények pontosságáért felelősséget nem vállalok, hiteles tájékoztatásért fordulj a TO-hoz.*
 
 ## 1. Válaszd ki a képzést
+
+*Jelenleg csak a proginfó támogatott.*
 
 <label>
 Képzés:
