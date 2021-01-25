@@ -5,6 +5,7 @@ class SubjectData {
 		this.credit = credit;
 		this.categories = categories;
 		this.grade = 0;
+		this.semester = 0;
 	}
 }
 
@@ -25,6 +26,33 @@ class Specialization {
 		matcat.spec = this;
 		this.infcat = infcat;
 		infcat.spec = this;
+	}
+}
+
+class Semester {
+	constructor(firstYear, num) {
+		this.firstYear = firstYear;
+		this.num = num;
+	}
+
+	static parse(str) {
+		const regex = /(\d{4})\/\d{2}\/(\d)/g.exec(str);
+		return new Semester(+regex[1], +regex[2]);
+	}
+
+	static current() {
+		const date = new Date();
+		const year = date.getFullYear();
+		const month = date.getMonth();
+		const s = new Semester(year, 1);
+		console.log("Month: " + month);
+		if (month === 0)
+			s.firstYear--;
+		else if (month < 8) {
+			s.firstYear--;
+			s.num++;
+		}
+		return s;
 	}
 }
 

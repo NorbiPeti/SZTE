@@ -40,8 +40,10 @@ parseExcel = async function (file) {
 						continue;
 					grade = [, sign.startsWith("Aláírva") ? 5 : 1];
 				}
+				let semester = Semester.parse(row["Félév"]);
 				subject.grade = +grade[1];
 				subject.credit = +row["Kr."];
+				subject.semester = semester;
 				grades[id] = subject;
 			}
 			const specsSpan = document.getElementById("specs");
@@ -93,6 +95,28 @@ parseExcel = async function (file) {
 					specsSpan.innerHTML += "Testnevelés: " + Object.values(grades).reduce((pv, cv) => cv.id.startsWith("XT") && cv.grade === 5 ? pv + 1 : pv, 0) + "/2 félév"; //TODO: Különböző félévben
 				}
 			}
+			console.log("Current semester:");
+			let semester = Semester.current();
+			console.log(semester);
+			let grds = [];
+			for (const grade of Object.values(grades)) {
+				console.log("gsfy: " + grade.semester.firstYear);
+				console.log("gsn: " + grade.semester.num);
+				console.log("sfy: " + semester.firstYear);
+				console.log("sn: " + semester.num);
+				if (grade.semester.firstYear === semester.firstYear && grade.semester.num === semester.num)
+					grds.push(grade);
+			}
+			let totalCred = 0, passedCred = 0, totalNum = 0;
+			for (const grade of grds) {
+				if (grade.grade > 1) {
+					passedCred += grade.credit;
+					totalNum += grade.credit * grade.grade;
+				}
+				totalCred += grade.credit;
+			}
+			console.log("tc: " + totalCred + " pc: " + passedCred + " tn: " + totalNum);
+			specsSpan.innerHTML += "<br />KKI (ösztöndijhoz): " + (totalNum / 30.0 * passedCred / totalCred);
 		});
 	} catch (ex) {
 		console.log(ex);
