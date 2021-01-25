@@ -37,8 +37,9 @@ parseExcel = async function (file) {
 				if (grade == null) {
 					const sign = row["Aláírás"];
 					if (!sign)
-						continue;
-					grade = [, sign.startsWith("Aláírva") ? 5 : 1];
+						grade = [, 0];
+					else
+						grade = [, sign.startsWith("Aláírva") ? 5 : 1];
 				}
 				let semester = Semester.parse(row["Félév"]);
 				subject.grade = +grade[1];
