@@ -161,8 +161,7 @@ Ekkor a félév végén még megszerezheted az abszolutóriumot (ha mindent telj
 
 ### Miből áll a záróvizsga?
 A záróvizsga két fő részből áll, egy szakdolgozat védésőbl és egy felelésből.
-Gazdaságinformatikus szakon külön időpontban van a védés a záróvizsga előtt, erről időben tájékoztatást küldenek.
-A többi szakon közvetlenül egymás után zajlik a védés és a felelet.
+Most minden infós szakon közvetlenül egymás után zajlik a védés és a felelet.
 
 Az aktuális felkészülési idő (most épp 1 óra) alatt bármilyen segédanyagot lehet használni, kivéve a videót vagy másik
 személyt. Ezután max. 10 perc védés és max. 10 perc felelés a tételből. Az egyes bizottságoknak másak az elvárásai,
