@@ -4,9 +4,9 @@ ptitle: Gyakran ismételt kérdések
 ---
 Az itt található információk elsősorban az SZTE Informatikai Intézet szakjaira vonatkoznak (proginfó, gazdinfó, mérnökinfó, zümi).
 
-*Utoljára frissitve: 2024.05.17. 00:35*
+*Utoljára frissitve: 2024.06.06. 18:00*
 
-## Általános infók
+## Tárgyfelvétel
 ### Mikor kezdődik a rangsoros (kedvezményes) és a versenyes (normál) tárgyfelvétel?
 Ez a [kari naptár](https://sci.u-szeged.hu/oktatas/naptarak/kari-naptar)ban van leírva, általában két héttel a szorgalmi időszak előtt kezdődik a rangsoros és 1 hétig (5 napig) tart, utána 3 hétig tart a versenyes.
 
@@ -47,6 +47,7 @@ Specializációtól függetlenül viszont szabadon választhatóként is számí
 
 A képzés során régen csak 10%-kal lehetett *ingyen* túllépni a kötelező kreditmennyiséget, de ezt már eltörölték.
 
+## Állami ösztöndijak
 ### Mik az államin maradás feltételei?
 Jelenleg két félév alatt 36 *teljesített* kredit és 2,75-ös átlag kell (a két félévre együttesen számolt súlyozott átlag). A Neptun nem túl sűrűn frissíti az átlagokat, de előbb-utóbb frissítik.
 
@@ -68,11 +69,29 @@ A tanulmányi ösztöndíj automatikusan jár minden hallgatónak aki jogosult r
 
 Modulo-ban az átlagmódosítási kérvény szerkesztésre megnyitásával (ha egyszer megnyitottad, akkor a piszkozatokban ott van) meg lehet nézni, hogy milyen átlagért mennyi ösztöndíj jár, ha már elérhető.
 
-### Hányszor lehet vizsgázni vagy felvenni egy tárgyat?
-Egy tárgyat most már bármennyiszer fel lehet venni, de egy félévben összesen háromszor lehet vizsgázni. Emellett összesen hatszor lehet vizsgázni egy tárgyból egy képzés során.
+### Hányszor lehet felvenni egy tárgyat?
+Egy tárgyat most már bármennyiszer fel lehet venni, ha nem sikerült teljesiteni (elégtelen lett).
+
+## Vizsgaidőszak
+### Hányszor lehet vizsgázni (egy félévben/egy képzés alatt)?
+Egy félévben összesen háromszor lehet vizsgázni. Emellett összesen hatszor lehet vizsgázni egy tárgyból egy képzés során.
+Újrajelentkezés után újraindul a számláló, újra lehet hatszor vizsgázni.
 
 A hatodik vizsgaalkalmat (5. ismétlővizsga) kötelező bizottság előtt letenni. Ez főleg a hallgatót védi, ha az oktató nem korrekt, mert itt a bizottság felügyeli a dolgokat.
 
+### Mi történik, ha nem megyek el egy vizsgára?
+A hivatalos szabályok szerint 'nem jelent meg' kerül bejegyzésre. Ezzel elhasználsz egy vizsgaalkalmat, viszont ez nem
+jogosit fel arra, hogy az utóvizsga héten vizsgázz (mint az elégtelen jegy).
+Más következménye nincs.
+
+Ha bemutatsz orvosi igazolást a távollétedről, akkor nem számit elhasznált vizsgaalkalomnak.
+
+### Mi az az utóvizsga? Mi kell hozzá?
+A rendes vizsgaidőszak után van egy plusz utóvizsga hét.
+Erre a hétre csak akkor tudsz felvenni vizsgát (ha jól van beállitva a Neptun), ha már buktál a tárgyból abban a félévben.
+Egyébként teljesen ugyanaz, mint bármely másik vizsgaidőpont.
+
+## Általános infók
 ### Meddig érvényes a diákigazolvány?
 Első féléves matricával március 31-ig, második félévessel október 31-ig (kivéve COVID).
 
